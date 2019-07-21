@@ -5,9 +5,10 @@
 #
 # Practice with the `wrapr` package
 # https://github.com/winvector/wrapr
-# 
+#
 
 library(wrapr)
+library(microbenchmark)
 
 # assign global vars ------------------------------------------------------
 
@@ -41,7 +42,7 @@ base_func(vec_a, vec_b)
 
 # wrapr
 let_func <- function(a, b) {
-    let(c(x = quote(a), y = quote(b)), 
+    let(c(x = quote(a), y = quote(b)),
         expr = {
             x %*% y
         }
@@ -55,7 +56,7 @@ let_func(vec_a, vec_b)
 set.seed(1)
 
 mx_a <- matrix(
-    runif(1000 * 1000),
+    runif(10000 * 1000),
     nrow = 1000,
     ncol = 1000
 )
@@ -75,3 +76,5 @@ results <- microbenchmark(
     },
     times = 100
 )
+
+results
